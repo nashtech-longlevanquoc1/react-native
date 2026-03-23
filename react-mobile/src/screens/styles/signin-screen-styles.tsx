@@ -1,60 +1,231 @@
-import { StyleSheet, TextStyle, ViewStyle } from "react-native";
+﻿import { StyleSheet } from 'react-native';
 
-type ISignInStyles = {
-    changeLanguageContent: ViewStyle;
-    languageItem: ViewStyle;
-    forgotPassword: ViewStyle;
-    row: ViewStyle;
-    forgot: TextStyle;
-    link: TextStyle;
-};
+const PRIMARY = '#00BCD4';
+const PRIMARY_LIGHT = '#E0F7FA';
 
-export const signinStyles = StyleSheet.create({
-    container: {
-        width: '100%',
-        height: '100%',
-        padding: 20,
+export const styles = StyleSheet.create({
+    safeArea: {
         flex: 1,
-        flexDirection: 'column',
+        backgroundColor: '#FFFFFF',
     },
-    topSection: {
-        alignContent: 'center',
-        flex: 0.2,
+    keyboardView: {
+        flex: 1,
     },
-    middleSection: {
-        alignContent: 'center',
-        flex: 0.5,
+    scrollContent: {
+        flexGrow: 1,
+        paddingHorizontal: 28,
+        paddingVertical: 36,
+        backgroundColor: '#FFFFFF',
     },
-    bottomSection: {
-        alignContent: 'center',
-        flex: 0.2,
+    iconWrapper: {
+        alignSelf: 'center',
+        width: 72,
+        height: 72,
+        borderRadius: 36,
+        backgroundColor: PRIMARY_LIGHT,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
     },
-});
-
-export const styles = StyleSheet.create<ISignInStyles>({
-    changeLanguageContent: {
+    iconText: {
+        fontSize: 34,
+    },
+    title: {
+        fontSize: 26,
+        fontWeight: '700',
+        color: '#1A1A1A',
+        textAlign: 'center',
+        marginBottom: 6,
+    },
+    subtitle: {
+        fontSize: 16,
+        color: '#9E9E9E',
+        textAlign: 'center',
+        marginBottom: 28,
+    },
+    tabContainer: {
         flexDirection: 'row',
-        position: 'absolute',
-        top: 20,
-        right: 0,
-    },
-    languageItem: {
-        padding: 5,
-    },
-    forgotPassword: {
-        width: '100%',
-        alignItems: 'flex-end',
+        backgroundColor: '#F0F0F0',
+        borderRadius: 10,
+        padding: 4,
         marginBottom: 24,
     },
-    row: {
-        flexDirection: 'row',
-        marginTop: 4,
+    tab: {
+        flex: 1,
+        paddingVertical: 10,
+        alignItems: 'center',
+        borderRadius: 8,
     },
-    forgot: {
+    activeTab: {
+        backgroundColor: '#FFFFFF',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.12,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+    tabText: {
+        fontSize: 14,
+        color: '#9E9E9E',
+        fontWeight: '600',
+    },
+    activeTabText: {
+        color: '#1A1A1A',
+    },
+    label: {
+        fontSize: 13,
+        color: '#1A1A1A',
+        fontWeight: '600',
+        marginBottom: 6,
+        marginTop: 8,
+    },
+    inputContainer: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        marginBottom: 4,
+    },
+    input: {
+        color: '#1A1A1A',
+        paddingHorizontal: 16,
+        paddingVertical: 13,
+        fontSize: 15,
+    },
+    errorText: {
+        color: '#E53935',
+        fontSize: 12,
+        marginBottom: 4,
+    },
+    forgotPasswordRow: {
+        alignItems: 'flex-end',
+        marginTop: 8,
+        marginBottom: 4,
+    },
+    forgotPasswordText: {
+        color: '#54eff1',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    biometricsRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 14,
+    },
+    checkbox: {
+        width: 18,
+        height: 18,
+        borderRadius: 3,
+        borderWidth: 1.5,
+        borderColor: '#BDBDBD',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 10,
+        backgroundColor: '#FFFFFF',
+    },
+    checkboxChecked: {
+        backgroundColor: PRIMARY,
+        borderColor: PRIMARY,
+    },
+    checkmark: {
+        color: '#FFFFFF',
+        fontSize: 11,
+        fontWeight: '700',
+    },
+    biometricsText: {
+        color: '#616161',
         fontSize: 13,
     },
-    link: {
-        fontWeight: 'bold',
-        color: 'gray',
+    signInButton: {
+        backgroundColor: '#54eff1',
+        borderRadius: 8,
+        paddingVertical: 15,
+        alignItems: 'center',
+        marginTop: 4,
+        marginBottom: 12,
+    },
+    signInButtonText: {
+        color: '#000000',
+        fontSize: 16,
+        fontWeight: '700',
+        letterSpacing: 0.3,
+    },
+    biometricButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        borderWidth: 1.5,
+        borderColor: '#54eff1',
+        paddingVertical: 13,
+        marginBottom: 22,
+        backgroundColor: '#FFFFFF',
+    },
+    biometricButtonIcon: {
+        color: '#54eff1',
+        fontSize: 18,
+        marginRight: 8,
+    },
+    biometricButtonText: {
+        color: '#54eff1',
+        fontSize: 15,
+        fontWeight: '600',
+    },
+    separatorRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 18,
+    },
+    separatorLine: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#E0E0E0',
+    },
+    separatorText: {
+        color: '#9E9E9E',
+        fontSize: 13,
+        marginHorizontal: 12,
+    },
+    socialRow: {
+        flexDirection: 'row',
+        gap: 12,
+        marginBottom: 28,
+    },
+    socialButton: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#E0E0E0',
+        paddingVertical: 12,
+        backgroundColor: '#FFFFFF',
+    },
+    socialIconGoogle: {
+        color: '#EA4335',
+        fontSize: 16,
+        fontWeight: '700',
+        marginRight: 6,
+    },
+    socialIconFacebook: {
+        color: '#1877F2',
+        fontSize: 16,
+        fontWeight: '700',
+        marginRight: 6,
+    },
+    socialButtonText: {
+        color: '#1A1A1A',
+        fontSize: 14,
+        fontWeight: '500',
+    },
+    footerText: {
+        color: '#9E9E9E',
+        fontSize: 12,
+        textAlign: 'center',
+        lineHeight: 18,
+    },
+    footerLink: {
+        textDecorationLine: 'underline',
     },
 });

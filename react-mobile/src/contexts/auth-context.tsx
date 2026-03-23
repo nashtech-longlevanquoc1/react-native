@@ -3,7 +3,8 @@ import { User } from '../models/user';
 
 interface AuthContextProps {
     user: User | null;
-    login: (username: string, password: string) => void;
+    login: (username: string, password: string) => boolean;
+    register: (username: string, password: string) => boolean;
     logout: () => void;
 }
 
@@ -15,13 +16,25 @@ interface AuthProviderProps {
 
 const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
+    const [registeredUsers, setRegisteredUsers] = useState<{ username: string; password: string }[]>([
+        { username: 'longle', password: '123456' },
+    ]);
 
-    const login = (username: string, password: string) => {
-        if (username === 'example' && password === 'password') {
+    const login = (username: string, password: string): boolean => {
+        const found = registeredUsers.find(u => u.username === username && u.password === password);
+        if (found) {
             setUser({ username });
-        } else {
-            console.warn('Invalid credentials');
+            return true;
         }
+        return false;
+    };
+
+    const register = (username: string, password: string): boolean => {
+        const exists = registeredUsers.some(u => u.username === username);
+        if (exists) return false;
+        setRegisteredUsers(prev => [...prev, { username, password }]);
+        setUser({ username });
+        return true;
     };
 
     const logout = () => {
@@ -31,6 +44,7 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const contextValue: AuthContextProps = {
         user,
         login,
+        register,
         logout,
     };
 
