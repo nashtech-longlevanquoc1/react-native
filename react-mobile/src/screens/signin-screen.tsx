@@ -2,6 +2,7 @@
 import {
     View,
     Text,
+    Image,
     TextInput,
     TouchableOpacity,
     ScrollView,
@@ -94,7 +95,11 @@ export const SignInScreen: FC<ISignInScreenProps> = ({ navigation }) => {
                 >
                     {/* Icon */}
                     <View style={styles.iconWrapper}>
-                        <Text style={styles.iconText}>🛍️</Text>
+                        <Image
+                            source={require('../assets/images/icon_app.png')}
+                            style={styles.iconImage}
+                            resizeMode="contain"
+                        />
                     </View>
 
                     {/* Header */}

@@ -19,16 +19,15 @@ export const styles = StyleSheet.create({
     },
     iconWrapper: {
         alignSelf: 'center',
-        width: 72,
-        height: 72,
-        borderRadius: 36,
-        backgroundColor: PRIMARY_LIGHT,
+        borderRadius: 40,
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: 20,
+        marginBottom: 16,
     },
-    iconText: {
-        fontSize: 34,
+    iconImage: {
+        width: 52,
+        height: 52,
+        borderRadius: 12,
     },
     title: {
         fontSize: 26,
@@ -103,7 +102,7 @@ export const styles = StyleSheet.create({
         marginBottom: 4,
     },
     forgotPasswordText: {
-        color: '#54eff1',
+        color: '#0DF2F2',
         fontSize: 14,
         fontWeight: '500',
     },
@@ -137,7 +136,7 @@ export const styles = StyleSheet.create({
         fontSize: 13,
     },
     signInButton: {
-        backgroundColor: '#54eff1',
+        backgroundColor: '#0DF2F2',
         borderRadius: 8,
         paddingVertical: 15,
         alignItems: 'center',
@@ -156,18 +155,18 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 10,
         borderWidth: 1.5,
-        borderColor: '#54eff1',
+        borderColor: '#0DF2F2',
         paddingVertical: 13,
         marginBottom: 22,
         backgroundColor: '#FFFFFF',
     },
     biometricButtonIcon: {
-        color: '#54eff1',
+        color: '#0DF2F2',
         fontSize: 18,
         marginRight: 8,
     },
     biometricButtonText: {
-        color: '#54eff1',
+        color: '#0DF2F2',
         fontSize: 15,
         fontWeight: '600',
     },
