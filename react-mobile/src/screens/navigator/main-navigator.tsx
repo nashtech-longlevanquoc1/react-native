@@ -5,6 +5,7 @@ import { HomeScreen } from '../home-screen';
 import { ProfileScreen } from '../profile-screen';
 import { StyleSheet, Text, Image } from 'react-native';
 import ListScreen from '../list-screen';
+import { DemoScreen } from '../demo-screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -66,6 +67,14 @@ const MainNavigator: React.FC<IMainNavigator> = ({ navigation }) => {
                             style={[styles.tabImg, { tintColor: color }]}
                         />
                     ),
+                }}
+            />
+            <Tab.Screen
+                name="Demo"
+                component={DemoScreen}
+                options={{
+                    tabBarLabel: 'Demo',
+                    tabBarIcon: ({ color }) => <Text style={[styles.tabIcon, { color }]}>⚡</Text>,
                 }}
             />
         </Tab.Navigator>
