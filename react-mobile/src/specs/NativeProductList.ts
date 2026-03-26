@@ -1,7 +1,7 @@
 import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
-export interface WishlistItemJS {
+export interface ProductListItemJS {
   id: number;
   productId: string;
   productName: string;
@@ -11,16 +11,16 @@ export interface WishlistItemJS {
 }
 
 export interface Spec extends TurboModule {
-  addToWishlist(
+  addToProductList(
     productId: string,
     productName: string,
     price: number,
     imageUrl: string | null
   ): Promise<boolean>;
-  removeFromWishlist(productId: string): Promise<boolean>;
-  getWishlist(): Promise<WishlistItemJS[]>;
-  isInWishlist(productId: string): Promise<boolean>;
+  removeFromProductList(productId: string): Promise<boolean>;
+  getProductList(): Promise<ProductListItemJS[]>;
+  isInProductList(productId: string): Promise<boolean>;
   clearAll(): Promise<boolean>;
 }
 
-export default TurboModuleRegistry.get<Spec>('WishlistModule');
+export default TurboModuleRegistry.get<Spec>('ProductListModule');

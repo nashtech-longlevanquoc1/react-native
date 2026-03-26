@@ -6,29 +6,28 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [WishlistItem::class],
+    entities = [ProductListItem::class],
     version = 1,
-    exportSchema = false
+    exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun wishlistDao(): WishlistDao
+    abstract fun productListDao(): ProductListDao
 
     companion object {
         @Volatile
-        private var INSTANCE: AppDatabase? = null
+        private var instance: AppDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase {
-            return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "wishlist_db"
-                ).build()
-
-                INSTANCE = instance
-                instance
+        fun getInstance(context: Context): AppDatabase =
+            instance ?: synchronized(this) {
+                instance ?: buildDatabase(context).also { instance = it }
             }
-        }
+
+        private fun buildDatabase(context: Context): AppDatabase =
+            Room.databaseBuilder(
+                context.applicationContext,
+                AppDatabase::class.java,
+                "product_list_db",
+            ).build()
     }
 }

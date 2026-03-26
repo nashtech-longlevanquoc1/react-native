@@ -7,13 +7,13 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface WishlistDao {
+interface ProductListDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: WishlistItem)
+    suspend fun insert(item: ProductListItem)
 
     @Query("SELECT * FROM product_items ORDER BY createdAt DESC")
-    fun getAll(): Flow<List<WishlistItem>>
+    fun getAll(): Flow<List<ProductListItem>>
 
     @Query("DELETE FROM product_items WHERE productId = :productId")
     suspend fun deleteByProductId(productId: String)

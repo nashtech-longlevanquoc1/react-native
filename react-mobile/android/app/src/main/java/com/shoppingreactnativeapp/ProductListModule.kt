@@ -6,8 +6,8 @@ import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.shoppingreactnativeapp.data.AppDatabase
-import com.shoppingreactnativeapp.data.WishlistItem
-import com.shoppingreactnativeapp.data.WishlistRepository
+import com.shoppingreactnativeapp.data.ProductListItem
+import com.shoppingreactnativeapp.data.ProductListRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -15,18 +15,18 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class WishlistModule(
+class ProductListModule(
     reactContext: ReactApplicationContext
 ) : ReactContextBaseJavaModule(reactContext) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    private val repository: WishlistRepository by lazy {
+    private val repository: ProductListRepository by lazy {
         val db = AppDatabase.getInstance(reactContext)
-        WishlistRepository(db.wishlistDao())
+        ProductListRepository(db.productListDao())
     }
 
-    override fun getName(): String = "WishlistModule"
+    override fun getName(): String = "ProductListModule"
 
     override fun invalidate() {
         scope.cancel()
@@ -34,7 +34,7 @@ class WishlistModule(
     }
 
     @ReactMethod
-    fun addToWishlist(
+    fun addToProductList(
         productId: String,
         productName: String,
         price: Double,
@@ -43,13 +43,13 @@ class WishlistModule(
     ) {
         scope.launch {
             try {
-                val item = WishlistItem(
+                val item = ProductListItem(
                     productId = productId,
                     productName = productName,
                     price = price,
                     imageUrl = imageUrl
                 )
-                repository.addToWishlist(item)
+                repository.addToProductList(item)
                 promise.resolve(true)
             } catch (e: Exception) {
                 promise.reject("ADD_ERROR", e.message, e)
@@ -58,10 +58,10 @@ class WishlistModule(
     }
 
     @ReactMethod
-    fun removeFromWishlist(productId: String, promise: Promise) {
+    fun removeFromProductList(productId: String, promise: Promise) {
         scope.launch {
             try {
-                repository.removeFromWishlist(productId)
+                repository.removeFromProductList(productId)
                 promise.resolve(true)
             } catch (e: Exception) {
                 promise.reject("REMOVE_ERROR", e.message, e)
@@ -70,10 +70,10 @@ class WishlistModule(
     }
 
     @ReactMethod
-    fun getWishlist(promise: Promise) {
+    fun getProductList(promise: Promise) {
         scope.launch {
             try {
-                val items = repository.getWishlist().first()
+                val items = repository.getProductList().first()
                 val result = Arguments.createArray()
                 items.forEach { item ->
                     val map = Arguments.createMap()
@@ -93,10 +93,10 @@ class WishlistModule(
     }
 
     @ReactMethod
-    fun isInWishlist(productId: String, promise: Promise) {
+    fun isInProductList(productId: String, promise: Promise) {
         scope.launch {
             try {
-                val exists = repository.isInWishlist(productId)
+                val exists = repository.isInProductList(productId)
                 promise.resolve(exists)
             } catch (e: Exception) {
                 promise.reject("CHECK_ERROR", e.message, e)
@@ -108,8 +108,8 @@ class WishlistModule(
     fun clearAll(promise: Promise) {
         scope.launch {
             try {
-                repository.getWishlist() // ensure repository is initialized
-                AppDatabase.getInstance(reactApplicationContext).wishlistDao().clearAll()
+                repository.getProductList() // ensure repository is initialized
+                AppDatabase.getInstance(reactApplicationContext).productListDao().clearAll()
                 promise.resolve(true)
             } catch (e: Exception) {
                 promise.reject("CLEAR_ERROR", e.message, e)

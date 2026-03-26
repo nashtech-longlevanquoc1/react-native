@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     tableName = "product_items",
     indices = [Index(value = ["productId"], unique = true)]
 )
-data class WishlistItem(
+data class ProductListItem(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
