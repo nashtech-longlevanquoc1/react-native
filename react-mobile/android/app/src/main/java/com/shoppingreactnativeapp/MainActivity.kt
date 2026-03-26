@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp
+package com.shoppingreactnativeapp.app
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate

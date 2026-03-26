@@ -1,13 +1,13 @@
-package com.shoppingreactnativeapp
+package com.shoppingreactnativeapp.feature.product.native
 
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.shoppingreactnativeapp.data.AppDatabase
-import com.shoppingreactnativeapp.data.ProductListItem
-import com.shoppingreactnativeapp.data.ProductListRepository
+import com.shoppingreactnativeapp.core.database.AppDatabase
+import com.shoppingreactnativeapp.feature.product.data.local.entity.ProductEntity
+import com.shoppingreactnativeapp.feature.product.data.repository.ProductRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -15,15 +15,15 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class ProductListModule(
+class ProductModule(
     reactContext: ReactApplicationContext
 ) : ReactContextBaseJavaModule(reactContext) {
 
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    private val repository: ProductListRepository by lazy {
+    private val repository: ProductRepository by lazy {
         val db = AppDatabase.getInstance(reactContext)
-        ProductListRepository(db.productListDao())
+        ProductRepository(db.productDao())
     }
 
     override fun getName(): String = "ProductListModule"
@@ -43,7 +43,7 @@ class ProductListModule(
     ) {
         scope.launch {
             try {
-                val item = ProductListItem(
+                val item = ProductEntity(
                     productId = productId,
                     productName = productName,
                     price = price,
@@ -108,8 +108,8 @@ class ProductListModule(
     fun clearAll(promise: Promise) {
         scope.launch {
             try {
-                repository.getProductList() // ensure repository is initialized
-                AppDatabase.getInstance(reactApplicationContext).productListDao().clearAll()
+                repository.getProductList()
+                AppDatabase.getInstance(reactApplicationContext).productDao().clearAll()
                 promise.resolve(true)
             } catch (e: Exception) {
                 promise.reject("CLEAR_ERROR", e.message, e)

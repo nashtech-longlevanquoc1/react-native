@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp
+package com.shoppingreactnativeapp.feature.calculator.native
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule

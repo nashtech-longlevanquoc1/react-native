@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp.data
+package com.shoppingreactnativeapp.feature.product.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.Index
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     tableName = "product_items",
     indices = [Index(value = ["productId"], unique = true)]
 )
-data class ProductListItem(
+data class ProductEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 

@@ -9,55 +9,23 @@ import {
     TextInput,
     TouchableOpacity,
     Image,
+    ActivityIndicator,
     Dimensions,
 } from 'react-native';
+import { useProductCatalog } from '../hooks/use-product-catalog';
 
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 48) / 2;
 
 const CATEGORIES = ['All Items', 'Electronics', 'Fashion', 'Home', 'Beauty'];
 
-const PRODUCTS = [
-    {
-        id: '1', name: 'Sonic-ü Wireless Headphones', category: 'Electronics', price: 129.0, bg: '#D8EDE3', sale: false, salePrice: null,
-        image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80',
-    },
-    {
-        id: '2', name: 'Metro Classic Timewatch Limited Edition', category: 'Fashion', price: 85.5, bg: '#E8F0E8', sale: false, salePrice: null,
-        image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80',
-    },
-    {
-        id: '3', name: 'Artisan Ceramic Mug', category: 'Home', price: 24.0, bg: '#D8EDE3', sale: false, salePrice: null,
-        image: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&q=80',
-    },
-    {
-        id: '4', name: 'Glow Essentials Kit', category: 'Beauty', price: 45.0, bg: '#E8EDD8', sale: true, salePrice: 60.0,
-        image: 'https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80',
-    },
-    {
-        id: '5', name: 'Leather Tote Bag', category: 'Fashion', price: 99.0, bg: '#EDE8D8', sale: false, salePrice: null,
-        image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&q=80',
-    },
-    {
-        id: '6', name: 'Smart Watch Pro', category: 'Electronics', price: 199.0, bg: '#D8E8ED', sale: true, salePrice: 249.0,
-        image: 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=400&q=80',
-    },
-    {
-        id: '7', name: 'Minimalist Desk Lamp', category: 'Home', price: 39.0, bg: '#EDE8D8', sale: false, salePrice: null,
-        image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&q=80',
-    },
-    {
-        id: '8', name: 'Yoga Mat Premium', category: 'Beauty', price: 32.0, bg: '#D8EDE3', sale: true, salePrice: 48.0,
-        image: 'https://images.unsplash.com/photo-1600881333168-2ef49b341f30?w=400&q=80',
-    },
-];
-
 export const HomeScreen: React.FC = () => {
     const [activeCategory, setActiveCategory] = useState('All Items');
     const [search, setSearch] = useState('');
     const [favorites, setFavorites] = useState<string[]>([]);
+    const { products, loading } = useProductCatalog();
 
-    const filtered = PRODUCTS.filter(p => {
+    const filtered = products.filter(p => {
         const matchCat = activeCategory === 'All Items' || p.category === activeCategory;
         const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
         return matchCat && matchSearch;
@@ -101,7 +69,7 @@ export const HomeScreen: React.FC = () => {
                 <View style={styles.cardFooter}>
                     <View style={styles.cardPriceRow}>
                         <Text style={styles.cardPrice}>${item.price.toFixed(2)}</Text>
-                        {item.sale && item.salePrice && (
+                        {item.sale && item.salePrice > 0 && (
                             <Text style={styles.cardPriceOld}>${item.salePrice.toFixed(2)}</Text>
                         )}
                     </View>
@@ -162,15 +130,19 @@ export const HomeScreen: React.FC = () => {
             </ScrollView>
 
             {/* Product grid */}
-            <FlatList
-                data={filtered}
-                renderItem={renderProduct}
-                keyExtractor={item => item.id}
-                numColumns={2}
-                contentContainerStyle={styles.grid}
-                showsVerticalScrollIndicator={false}
-                columnWrapperStyle={styles.row}
-            />
+            {loading ? (
+                <ActivityIndicator size="large" color="#0DF2F2" style={{ marginTop: 40 }} />
+            ) : (
+                <FlatList
+                    data={filtered}
+                    renderItem={renderProduct}
+                    keyExtractor={item => item.id}
+                    numColumns={2}
+                    contentContainerStyle={styles.grid}
+                    showsVerticalScrollIndicator={false}
+                    columnWrapperStyle={styles.row}
+                />
+            )}
         </SafeAreaView>
     );
 };

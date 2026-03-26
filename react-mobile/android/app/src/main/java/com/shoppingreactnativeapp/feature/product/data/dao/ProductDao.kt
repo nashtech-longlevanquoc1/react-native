@@ -1,4 +1,6 @@
-package com.shoppingreactnativeapp.data
+package com.shoppingreactnativeapp.feature.product.data.local.dao
+
+import com.shoppingreactnativeapp.feature.product.data.local.entity.ProductEntity
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -7,13 +9,13 @@ import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ProductListDao {
+interface ProductDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: ProductListItem)
+    suspend fun insert(item: ProductEntity)
 
     @Query("SELECT * FROM product_items ORDER BY createdAt DESC")
-    fun getAll(): Flow<List<ProductListItem>>
+    fun getAll(): Flow<List<ProductEntity>>
 
     @Query("DELETE FROM product_items WHERE productId = :productId")
     suspend fun deleteByProductId(productId: String)
