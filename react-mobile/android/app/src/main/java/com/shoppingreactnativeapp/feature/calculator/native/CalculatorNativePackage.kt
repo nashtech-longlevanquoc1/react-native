@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp.feature.calculator.native
+package com.shoppingreactnativeapp.feature.calculator.`native`
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp.feature.product.native
+package com.shoppingreactnativeapp.feature.product.`native`
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule

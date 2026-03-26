@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp.feature.calculator.native
+package com.shoppingreactnativeapp.feature.calculator.`native`
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
@@ -12,7 +12,7 @@ class CalculatorNativeModule(
     override fun getName(): String = "NativeCalculator"
 
     @ReactMethod
-    fun save(a: Double, b: Double, promise: Promise) {
+    fun add(a: Double, b: Double, promise: Promise) {
         promise.resolve(a + b)
     }
 

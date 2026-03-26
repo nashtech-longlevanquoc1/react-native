@@ -6,9 +6,9 @@ import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
 import com.facebook.react.ReactNativeApplicationEntryPoint.loadReactNative
 import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
-import com.shoppingreactnativeapp.feature.calculator.native.NativeCalculatorPackage
-import com.shoppingreactnativeapp.feature.product.native.ProductCatalogPackage
-import com.shoppingreactnativeapp.feature.product.native.ProductPackage
+import com.shoppingreactnativeapp.feature.calculator.`native`.CalculatorNativePackage
+import com.shoppingreactnativeapp.feature.product.`native`.ProductCatalogNativePackage
+import com.shoppingreactnativeapp.feature.product.`native`.ProductNativePackage
 
 class MainApplication : Application(), ReactApplication {
 
@@ -18,9 +18,9 @@ class MainApplication : Application(), ReactApplication {
       packageList =
         PackageList(this).packages.apply {
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          add(NativeCalculatorPackage())
-          add(ProductPackage())
-          add(ProductCatalogPackage())
+          add(CalculatorNativePackage())
+          add(ProductNativePackage())
+          add(ProductCatalogNativePackage())
         },
     )
   }
