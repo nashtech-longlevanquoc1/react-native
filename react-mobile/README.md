@@ -97,3 +97,24 @@ To learn more about React Native, take a look at the following resources:
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 
 ![alt text](kotlin-native.png)
+
+## NativeCalculator — TurboModule Flow
+
+```mermaid
+flowchart LR
+    User([👤 User]) -->|Press| Screen["DemoScreen.tsx"]
+
+    Screen -->|"add(3,9)"| Spec["NativeCalculator.ts"]
+    Screen -->|"multiply(4,5)"| Spec
+
+    Spec -->| Call | Module["NativeCalculatorModule.kt"]
+
+    Module -->|"add() async\n→ Promise.resolve(a+b)"| Screen
+    Module -->|"multiply() sync\n→ return a*b"| Screen
+
+    Screen --> User
+
+    style Screen fill:#dbeafe,stroke:#3b82f6,color:#000
+    style Spec fill:#dbeafe,stroke:#3b82f6,color:#000
+    style Module fill:#dcfce7,stroke:#16a34a,color:#000
+```

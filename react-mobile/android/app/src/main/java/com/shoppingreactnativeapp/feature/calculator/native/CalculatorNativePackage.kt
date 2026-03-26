@@ -1,15 +1,15 @@
-package com.shoppingreactnativeapp.feature.product.native
+package com.shoppingreactnativeapp.feature.calculator.native
 
 import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
-class ProductCatalogPackage : ReactPackage {
+class CalculatorNativePackage : ReactPackage {
 
     override fun createNativeModules(
         reactContext: ReactApplicationContext
-    ): List<NativeModule> = listOf(ProductCatalogModule(reactContext))
+    ): List<NativeModule> = listOf(CalculatorNativeModule(reactContext))
 
     override fun createViewManagers(
         reactContext: ReactApplicationContext

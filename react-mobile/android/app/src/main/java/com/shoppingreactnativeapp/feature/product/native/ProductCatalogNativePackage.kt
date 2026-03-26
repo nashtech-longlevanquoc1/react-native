@@ -5,11 +5,11 @@ import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.uimanager.ViewManager
 
-class ProductPackage : ReactPackage {
+class ProductCatalogNativePackage : ReactPackage {
 
     override fun createNativeModules(
         reactContext: ReactApplicationContext
-    ): List<NativeModule> = listOf(ProductModule(reactContext))
+    ): List<NativeModule> = listOf(ProductCatalogNativeModule(reactContext))
 
     override fun createViewManagers(
         reactContext: ReactApplicationContext
