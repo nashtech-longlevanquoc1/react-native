@@ -9,28 +9,19 @@ import {
 import NativeCalculator from '../specs/NativeCalculator';
 import NativeProductList from '../specs/NativeProductList';
 import { useProductList } from '../hooks/use-product-list';
+import { useProductCatalog } from '../hooks/use-product-catalog';
+import type { ProductCatalogItemJS } from '../specs/NativeProductCatalog';
 
 interface DemoScreenProps {
   navigation: any;
 }
-
-interface SampleProduct {
-  id: string;
-  name: string;
-  price: number;
-}
-
-const SAMPLE_PRODUCTS: SampleProduct[] = [
-  { id: 'p1', name: 'Wireless Headphones', price: 129.0 },
-  { id: 'p2', name: 'Smart Watch Pro', price: 199.0 },
-  { id: 'p3', name: 'Leather Tote Bag', price: 99.0 },
-];
 
 export const DemoScreen: FC<DemoScreenProps> = ({ navigation }) => {
   const [addResult, setAddResult] = useState<number | null>(null);
   const [multiplyResult, setMultiplyResult] = useState<number | null>(null);
   const { productList, loading, fetchProductList, addItem, removeItem, clearAll } =
     useProductList();
+  const { products: catalogProducts, loading: catalogLoading } = useProductCatalog();
 
   useEffect(() => {
     fetchProductList();
@@ -54,7 +45,7 @@ export const DemoScreen: FC<DemoScreenProps> = ({ navigation }) => {
   );
 
   const handleToggleProductList = useCallback(
-    async (product: SampleProduct) => {
+    async (product: ProductCatalogItemJS) => {
       if (isInProductList(product.id)) {
         await removeItem(product.id);
       } else {
@@ -98,7 +89,10 @@ export const DemoScreen: FC<DemoScreenProps> = ({ navigation }) => {
       {!NativeProductList && (
         <Text style={styles.unavailable}>⚠ ProductListModule not available</Text>
       )}
-      {SAMPLE_PRODUCTS.map((p) => {
+      {catalogLoading && (
+        <Text style={styles.unavailable}>Loading catalog…</Text>
+      )}
+      {catalogProducts.map((p) => {
         const saved = isInProductList(p.id);
         return (
           <View key={p.id} style={styles.productRow}>

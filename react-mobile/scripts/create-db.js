@@ -22,13 +22,12 @@ async function main() {
   // Tạo bảng product_items khớp với ProductEntity
   db.run(`
     CREATE TABLE IF NOT EXISTS product_items (
-      id          INTEGER PRIMARY KEY AUTOINCREMENT,
+      id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       productId   TEXT    NOT NULL,
       productName TEXT    NOT NULL,
       price       REAL    NOT NULL,
       imageUrl    TEXT,
-      createdAt   INTEGER NOT NULL,
-      UNIQUE(productId)
+      createdAt   INTEGER NOT NULL
     )
   `);
 

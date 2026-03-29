@@ -34,11 +34,7 @@ class ProductCatalogNativeModule(
     fun getProductCatalog(promise: Promise) {
         scope.launch {
             try {
-                var items = catalogDao.getAll()
-                if (items.isEmpty()) {
-                    catalogDao.insertAll(CATALOG_SEED)
-                    items = catalogDao.getAll()
-                }
+                val items = catalogDao.getAll()
                 val result = Arguments.createArray()
                 items.forEach { item ->
                     val map = Arguments.createMap()
