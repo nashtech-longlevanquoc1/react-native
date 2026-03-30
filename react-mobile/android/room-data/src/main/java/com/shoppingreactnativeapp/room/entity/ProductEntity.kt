@@ -1,4 +1,4 @@
-package com.shoppingreactnativeapp.feature.product.data.local.entity
+package com.shoppingreactnativeapp.room.entity
 
 import androidx.room.Entity
 import androidx.room.Index

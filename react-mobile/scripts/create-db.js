@@ -1,6 +1,6 @@
 /**
- * Script tạo file shopping.db với sample data
- * Chạy: node scripts/create-db.js
+ * Script to generate shopping.db with sample data
+ * Run: node scripts/create-db.js
  */
 const initSqlJs = require('sql.js');
 const fs = require('fs');
@@ -15,11 +15,11 @@ async function main() {
   const SQL = await initSqlJs();
   const db = new SQL.Database();
 
-  // Room yêu cầu bảng android_metadata
+  // Room requires the android_metadata table
   db.run(`CREATE TABLE IF NOT EXISTS android_metadata (locale TEXT)`);
   db.run(`INSERT INTO android_metadata VALUES ('en_US')`);
 
-  // Tạo bảng product_items khớp với ProductEntity
+  // Create product_items table matching ProductEntity
   db.run(`
     CREATE TABLE IF NOT EXISTS product_items (
       id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -31,10 +31,10 @@ async function main() {
     )
   `);
 
-  // Index khớp với @Index trong ProductEntity
+  // Index matching @Index in ProductEntity
   db.run(`CREATE UNIQUE INDEX IF NOT EXISTS index_product_items_productId ON product_items (productId)`);
 
-  // Tạo bảng catalog_items khớp với CatalogEntity
+  // Create catalog_items table matching CatalogEntity
   db.run(`
     CREATE TABLE IF NOT EXISTS catalog_items (
       id        TEXT    PRIMARY KEY NOT NULL,
@@ -48,7 +48,7 @@ async function main() {
     )
   `);
 
-  // Catalog data (chuyển từ hardcode trong ProductCatalogNativeModule)
+  // Catalog seed data
   const catalog = [
     { id: '1', name: 'Sonic-ü Wireless Headphones',        category: 'Electronics', price: 129.0, salePrice: 0.0,   sale: 0, bg: '#D8EDE3', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80' },
     { id: '2', name: 'Metro Classic Timewatch Limited Edition', category: 'Fashion',     price: 85.5,  salePrice: 0.0,   sale: 0, bg: '#E8F0E8', image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80' },
@@ -68,7 +68,7 @@ async function main() {
   });
   catalogStmt.free();
 
-  // Sample data
+  // Sample product list data
   const now = Date.now();
   const products = [
     { id: 'P001', name: 'Wireless Headphones',  price: 129.0, image: null },
@@ -86,7 +86,7 @@ async function main() {
   });
   stmt.free();
 
-  // Xuất ra file
+  // Export to file
   const data = db.export();
   fs.writeFileSync(OUTPUT_PATH, Buffer.from(data));
   db.close();

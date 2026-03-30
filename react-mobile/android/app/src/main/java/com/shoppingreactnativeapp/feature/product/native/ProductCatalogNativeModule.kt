@@ -5,8 +5,8 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
-import com.shoppingreactnativeapp.core.database.AppDatabase
-import com.shoppingreactnativeapp.feature.product.data.local.entity.CatalogEntity
+import com.shoppingreactnativeapp.room.database.AppDatabase
+import com.shoppingreactnativeapp.room.entity.CatalogEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

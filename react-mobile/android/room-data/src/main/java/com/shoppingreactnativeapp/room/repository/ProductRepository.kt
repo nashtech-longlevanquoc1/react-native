@@ -1,7 +1,7 @@
-package com.shoppingreactnativeapp.feature.product.data.repository
+package com.shoppingreactnativeapp.room.repository
 
-import com.shoppingreactnativeapp.feature.product.data.local.dao.ProductDao
-import com.shoppingreactnativeapp.feature.product.data.local.entity.ProductEntity
+import com.shoppingreactnativeapp.room.dao.ProductDao
+import com.shoppingreactnativeapp.room.entity.ProductEntity
 import kotlinx.coroutines.flow.Flow
 
 class ProductRepository(

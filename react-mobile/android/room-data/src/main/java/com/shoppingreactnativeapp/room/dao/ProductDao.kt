@@ -1,6 +1,6 @@
-package com.shoppingreactnativeapp.feature.product.data.local.dao
+package com.shoppingreactnativeapp.room.dao
 
-import com.shoppingreactnativeapp.feature.product.data.local.entity.ProductEntity
+import com.shoppingreactnativeapp.room.entity.ProductEntity
 
 import androidx.room.Dao
 import androidx.room.Insert

@@ -1,9 +1,9 @@
-package com.shoppingreactnativeapp.core.database
+package com.shoppingreactnativeapp.room.database
 
-import com.shoppingreactnativeapp.feature.product.data.local.dao.CatalogDao
-import com.shoppingreactnativeapp.feature.product.data.local.dao.ProductDao
-import com.shoppingreactnativeapp.feature.product.data.local.entity.CatalogEntity
-import com.shoppingreactnativeapp.feature.product.data.local.entity.ProductEntity
+import com.shoppingreactnativeapp.room.dao.CatalogDao
+import com.shoppingreactnativeapp.room.dao.ProductDao
+import com.shoppingreactnativeapp.room.entity.CatalogEntity
+import com.shoppingreactnativeapp.room.entity.ProductEntity
 
 import android.content.Context
 import androidx.room.Database

@@ -1,10 +1,10 @@
-package com.shoppingreactnativeapp.feature.product.data.local.dao
+package com.shoppingreactnativeapp.room.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.shoppingreactnativeapp.feature.product.data.local.entity.CatalogEntity
+import com.shoppingreactnativeapp.room.entity.CatalogEntity
 
 @Dao
 interface CatalogDao {
