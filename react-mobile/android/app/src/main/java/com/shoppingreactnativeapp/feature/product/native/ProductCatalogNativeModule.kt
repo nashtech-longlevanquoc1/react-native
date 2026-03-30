@@ -7,11 +7,14 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
 import com.shoppingreactnativeapp.room.database.AppDatabase
 import com.shoppingreactnativeapp.room.entity.CatalogEntity
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+
+private const val TAG = "CatalogNativeModule"
 
 class ProductCatalogNativeModule(
     reactContext: ReactApplicationContext
@@ -32,9 +35,11 @@ class ProductCatalogNativeModule(
 
     @ReactMethod
     fun getProductCatalog(promise: Promise) {
+        Log.d(TAG, "[JS→Native] getProductCatalog called")
         scope.launch {
             try {
                 val items = catalogDao.getAll()
+                Log.d(TAG, "[Native→Room] getProductCatalog returned ${items.size} items")
                 val result = Arguments.createArray()
                 items.forEach { item ->
                     val map = Arguments.createMap()
@@ -48,8 +53,10 @@ class ProductCatalogNativeModule(
                     map.putString("image", item.image)
                     result.pushMap(map)
                 }
+                Log.d(TAG, "[Native→JS] resolving ${items.size} catalog items")
                 promise.resolve(result)
             } catch (e: Exception) {
+                Log.e(TAG, "[Native→Room] getProductCatalog FAILED — ${e.message}", e)
                 promise.reject("CATALOG_ERROR", e.message, e)
             }
         }

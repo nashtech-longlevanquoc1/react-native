@@ -21,11 +21,18 @@ export function useProductList(): UseProductListReturn {
   const [loading, setLoading] = useState(false);
 
   const fetchProductList = useCallback(async (): Promise<void> => {
-    if (!NativeProductList) return;
+    if (!NativeProductList) {
+      console.warn('[useProductList] NativeProductList module not available');
+      return;
+    }
+    console.log('[useProductList] fetchProductList → calling getProductList()');
     setLoading(true);
     try {
       const items = await NativeProductList.getProductList();
+      console.log(`[useProductList] fetchProductList ← got ${items.length} items`, items);
       setProductList(items);
+    } catch (e) {
+      console.error('[useProductList] fetchProductList FAILED', e);
     } finally {
       setLoading(false);
     }
@@ -39,7 +46,9 @@ export function useProductList(): UseProductListReturn {
       imageUrl?: string
     ): Promise<void> => {
       if (!NativeProductList) return;
+      console.log(`[useProductList] addItem → id=${productId}, name=${productName}, price=${price}`);
       await NativeProductList.addToProductList(productId, productName, price, imageUrl ?? null);
+      console.log(`[useProductList] addItem ← done, refreshing list`);
       await fetchProductList();
     },
     [fetchProductList]
@@ -48,7 +57,9 @@ export function useProductList(): UseProductListReturn {
   const removeItem = useCallback(
     async (productId: string): Promise<void> => {
       if (!NativeProductList) return;
+      console.log(`[useProductList] removeItem → id=${productId}`);
       await NativeProductList.removeFromProductList(productId);
+      console.log(`[useProductList] removeItem ← done, refreshing list`);
       await fetchProductList();
     },
     [fetchProductList]
@@ -56,12 +67,17 @@ export function useProductList(): UseProductListReturn {
 
   const checkItem = useCallback(async (productId: string): Promise<boolean> => {
     if (!NativeProductList) return false;
-    return NativeProductList.isInProductList(productId);
+    console.log(`[useProductList] checkItem → id=${productId}`);
+    const result = await NativeProductList.isInProductList(productId);
+    console.log(`[useProductList] checkItem ← ${result} — id=${productId}`);
+    return result;
   }, []);
 
   const clearAll = useCallback(async (): Promise<void> => {
     if (!NativeProductList) return;
+    console.log('[useProductList] clearAll →');
     await NativeProductList.clearAll();
+    console.log('[useProductList] clearAll ← done');
     setProductList([]);
   }, []);
 

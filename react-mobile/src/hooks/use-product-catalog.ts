@@ -6,9 +6,17 @@ export function useProductCatalog() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!NativeProductCatalog) return;
+    if (!NativeProductCatalog) {
+      console.warn('[useProductCatalog] NativeProductCatalog module not available');
+      return;
+    }
+    console.log('[useProductCatalog] getProductCatalog → calling native');
     NativeProductCatalog.getProductCatalog()
-      .then(setProducts)
+      .then(items => {
+        console.log(`[useProductCatalog] getProductCatalog ← got ${items.length} items`, items);
+        setProducts(items);
+      })
+      .catch(e => console.error('[useProductCatalog] getProductCatalog FAILED', e))
       .finally(() => setLoading(false));
   }, []);
 
