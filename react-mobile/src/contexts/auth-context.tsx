@@ -1,4 +1,4 @@
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, { createContext, useContext, ReactNode, useState, useCallback } from 'react';
 import { User } from '../models/user';
 
 interface AuthContextProps {
@@ -20,26 +20,26 @@ const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         { username: 'longle', password: '123456' },
     ]);
 
-    const login = (username: string, password: string): boolean => {
+    const login = useCallback((username: string, password: string): boolean => {
         const found = registeredUsers.find(u => u.username === username && u.password === password);
         if (found) {
             setUser({ username });
             return true;
         }
         return false;
-    };
+    }, [registeredUsers]);
 
-    const register = (username: string, password: string): boolean => {
+    const register = useCallback((username: string, password: string): boolean => {
         const exists = registeredUsers.some(u => u.username === username);
         if (exists) return false;
         setRegisteredUsers(prev => [...prev, { username, password }]);
         setUser({ username });
         return true;
-    };
+    }, [registeredUsers]);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         setUser(null);
-    };
+    }, []);
 
     const contextValue: AuthContextProps = {
         user,

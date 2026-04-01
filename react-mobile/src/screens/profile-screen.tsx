@@ -1,14 +1,22 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import type { MainTabParamList } from '../types/navigation';
 
-interface IProfileScreen {
-    navigation: any;
-}
+type ProfileScreenProps = BottomTabScreenProps<MainTabParamList, 'Profile'>;
 
-export const ProfileScreen: React.FC<IProfileScreen> = ({ navigation }) => {
+export const ProfileScreen: React.FC<ProfileScreenProps> = () => {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Profile</Text>
         </View>
     );
-}
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});

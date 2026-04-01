@@ -98,6 +98,18 @@ To learn more about React Native, take a look at the following resources:
 
 ![alt text](kotlin-native.png)
 
+## Get Catalog Data Flow
+
+```mermaid
+flowchart LR
+    A[HomeScreen] -->|useProductCatalog| B[Hook]
+    B -->|getProductCatalog| C[TurboModule\nNative Android]
+    C -->|CatalogDao.getAll| D[(Room DB\ncatalog_items)]
+    D -->|List CatalogEntity| C
+    C -->|promise.resolve| B
+    B -->|setProducts| A
+```
+
 ## NativeCalculator — TurboModule Flow
 
 ```mermaid

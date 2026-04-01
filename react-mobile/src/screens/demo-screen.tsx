@@ -12,9 +12,10 @@ import { useProductList } from '../hooks/use-product-list';
 import { useProductCatalog } from '../hooks/use-product-catalog';
 import type { ProductCatalogItemJS } from '../specs/NativeProductCatalog';
 
-interface DemoScreenProps {
-  navigation: any;
-}
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import type { MainTabParamList } from '../types/navigation';
+
+type DemoScreenProps = BottomTabScreenProps<MainTabParamList, 'Demo'>;
 
 export const DemoScreen: FC<DemoScreenProps> = ({ navigation }) => {
   const [addResult, setAddResult] = useState<number | null>(null);
@@ -56,7 +57,7 @@ export const DemoScreen: FC<DemoScreenProps> = ({ navigation }) => {
   );
 
   const handleBackHome = useCallback(() => {
-    navigation.navigate('Home');
+    navigation.navigate('Shop');
   }, [navigation]);
 
   return (

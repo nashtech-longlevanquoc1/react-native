@@ -30,7 +30,7 @@ export const apiSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
-        fetchDataSuccess: (state, action: PayloadAction<any[]>) => {
+        fetchDataSuccess: (state, action: PayloadAction<Photo[]>) => {
             state.loading = false;
             state.data = action.payload;
         },

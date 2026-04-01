@@ -17,7 +17,7 @@ const resources = {
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
-    compatibilityJSON: 'v3', //Add this line
+    compatibilityJSON: 'v4', //Add this line
     resources,
     lng: 'en',
     keySeparator: false, // we do not use keys in form messages.welcome

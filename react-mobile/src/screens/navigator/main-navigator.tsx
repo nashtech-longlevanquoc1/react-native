@@ -1,22 +1,22 @@
 // src/navigation/MainNavigator.tsx
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { HomeScreen } from '../home-screen';
 import { ProfileScreen } from '../profile-screen';
 import { StyleSheet, Text, Image } from 'react-native';
-import ListScreen from '../list-screen';
+import { ListScreen } from '../list-screen';
 import { DemoScreen } from '../demo-screen';
+import type { RootStackParamList, MainTabParamList } from '../../types/navigation';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const TAB_ACTIVE = '#00BCD4';
 const TAB_INACTIVE = '#9E9E9E';
 
-interface IMainNavigator {
-    navigation: any;
-}
+type MainNavigatorProps = NativeStackScreenProps<RootStackParamList, 'Main'>;
 
-const MainNavigator: React.FC<IMainNavigator> = ({ navigation }) => {
+export const MainNavigator: React.FC<MainNavigatorProps> = () => {
     return (
         <Tab.Navigator
             screenOptions={{
@@ -91,5 +91,3 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
 });
-
-export default MainNavigator;

@@ -14,13 +14,14 @@ import { styles } from './styles/signin-screen-styles';
 import { ITextInput } from '../types/text-input';
 import { useAuth } from '../contexts/auth-context';
 
-interface ISignInScreenProps {
-    navigation: any;
-}
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../types/navigation';
+
+type SignInScreenProps = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 type TabType = 'login' | 'signup';
 
-export const SignInScreen: FC<ISignInScreenProps> = ({ navigation }) => {
+export const SignInScreen: React.FC<SignInScreenProps> = ({ navigation }) => {
     const { login, register } = useAuth();
     const [activeTab, setActiveTab] = useState<TabType>('login');
     const [username, setUsername] = useState<ITextInput>({ value: '', error: '' });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import {
     SafeAreaView,
     ScrollView,
@@ -12,6 +12,7 @@ import {
     ActivityIndicator,
     Dimensions,
 } from 'react-native';
+import type { ProductCatalogItemJS } from '../specs/NativeProductCatalog';
 import { useProductCatalog } from '../hooks/use-product-catalog';
 
 const { width } = Dimensions.get('window');
@@ -25,20 +26,28 @@ export const HomeScreen: React.FC = () => {
     const [favorites, setFavorites] = useState<string[]>([]);
     const { products, loading } = useProductCatalog();
 
-    const filtered = products.filter(p => {
-        const matchCat = activeCategory === 'All Items' || p.category === activeCategory;
-        const matchSearch = p.name.toLowerCase().includes(search.toLowerCase());
-        return matchCat && matchSearch;
-    });
+    const filtered = useMemo(
+        () =>
+            products.filter(p => {
+                const matchCat =
+                    activeCategory === 'All Items' || p.category === activeCategory;
+                const matchSearch = p.name
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
+                return matchCat && matchSearch;
+            }),
+        [products, activeCategory, search],
+    );
 
-    const toggleFavorite = (id: string) => {
+    const toggleFavorite = useCallback((id: string) => {
         setFavorites(prev =>
-            prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+            prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id],
         );
-    };
+    }, []);
 
-    const renderProduct = ({ item, index }: { item: typeof PRODUCTS[0]; index: number }) => (
-        <View style={[styles.card, index % 2 === 0 ? { marginRight: 8 } : { marginLeft: 8 }]}>
+    const renderProduct = useCallback(
+        ({ item, index }: { item: ProductCatalogItemJS; index: number }) => (
+        <View style={[styles.card, index % 2 === 0 ? styles.cardEven : styles.cardOdd]}>
             {/* Image area */}
             <View style={[styles.cardImage, { backgroundColor: item.bg }]}>
                 <Image
@@ -79,7 +88,9 @@ export const HomeScreen: React.FC = () => {
                 </View>
             </View>
         </View>
-    );
+    ), [favorites, toggleFavorite]);
+
+    const keyExtractor = useCallback((item: ProductCatalogItemJS) => item.id, []);
 
     return (
         <SafeAreaView style={styles.safeArea}>
@@ -131,12 +142,12 @@ export const HomeScreen: React.FC = () => {
 
             {/* Product grid */}
             {loading ? (
-                <ActivityIndicator size="large" color="#0DF2F2" style={{ marginTop: 40 }} />
+                <ActivityIndicator size="large" color="#0DF2F2" style={styles.loader} />
             ) : (
                 <FlatList
                     data={filtered}
                     renderItem={renderProduct}
-                    keyExtractor={item => item.id}
+                    keyExtractor={keyExtractor}
                     numColumns={2}
                     contentContainerStyle={styles.grid}
                     showsVerticalScrollIndicator={false}
@@ -352,5 +363,14 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '300',
         lineHeight: 28,
+    },
+    loader: {
+        marginTop: 40,
+    },
+    cardEven: {
+        marginRight: 8,
+    },
+    cardOdd: {
+        marginLeft: 8,
     },
 });
